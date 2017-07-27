@@ -4,12 +4,14 @@
 <section id="content" class="body">
   <article>
     <header>
-      <h1 class="entry-title">
+      <h1 id="entry-title" class="entry-title">
         <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
            title="Permalink to {{ article.title|striptags }}">{{ article.title}}</a></h1>
-      {% include 'twitter.html' %}
+      <!--{% include 'twitter.html' %}-->
     </header>
-
+	<span style="position: fixed; z-index: 9999; bottom: 30px; left: 10px;">
+	{% include 'social.html' %}
+	</span>
     <div class="entry-content">
       {% include 'article_infos.html' %}
       {{ article.content }}

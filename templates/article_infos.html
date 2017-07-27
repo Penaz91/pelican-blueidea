@@ -1,7 +1,7 @@
 <footer class="post-info">
-        <span>{{ article.locale_date }}</span>
+        <span class="updated">{{ article.locale_date }}</span>
         {% if article.author and DISPLAY_AUTHOR_ON_POSTINFO %}
-        	<span>| by <a class="url fn" href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></span>
+        	<span class="author vcard">| by <a class="url fn" href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></span>
         {% endif %}
         {% if DISPLAY_CATEGORIES_ON_POSTINFO %}
 	        <span>| in <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a></span>

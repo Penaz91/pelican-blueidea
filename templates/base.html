@@ -2,6 +2,7 @@
 <html lang="{{ DEFAULT_LANG }}">
 <head>
         <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi">
         <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
         <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ CSS_FILE }}" />
         {% if FEED_ALL_ATOM %}
@@ -14,12 +15,91 @@
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+	<!-- Cookie policy -->
+<script type="text/javascript">
+	var _iub = _iub || [];
+	_iub.csConfiguration = {
+		cookiePolicyId: 359858,
+		siteId: 370737,
+		lang: "it",
+		priorConsent: false
+	};
+</script>
+<script type="text/javascript" src="//cdn.iubenda.com/cookie_solution/safemode/iubenda_cs.js" charset="UTF-8" async></script>
+<!-- og tags -->
+{% if article %}
+{% for tag in article.ogtags %}
+<meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+{% endfor %}
+{% endif %}
+<!-- end og tags -->
+<!-- Twitter Tags -->
+{% if TWITTER_USERNAME %}
+<meta name="twitter:site" content="@{{ TWITTER_USERNAME }}" />
+<meta name="twitter:creator" content="@{{ TWITTER_USERNAME }}" />
+{% endif%}
+<meta name="twitter:image" content="https://pbs.twimg.com/profile_images/821468543162130433/NleYVz-w_400x400.jpg" />
+{% if article and article.summary %}
+<meta name="twitter:card" content="{{ article.summary|striptags }}" />
+{% else %}
+<meta name="twitter:card" content="{{ SITE_SUMMARY }}"/>
+{% endif%}
+<!-- end Twitter Tags -->
+{% if page  %}
+<link rel="canonical" href="{{ SITEURL }}/{{ page.slug }}" />
+{% for tag in page.ogtags %}
+<meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+{% endfor %}
+{% endif %}
+{% if article%}
+<link rel="canonical" href="{{ SITEURL }}/{{ article.url }}"/>
+{% endif%}
+{% if article and article.summary %}
+<meta name="description" content="{{ article.summary|striptags }}"/>
+{% else %}
+<meta name="description" content="{{ SITE_SUMMARY }}"/>
+{% endif%}
+{% include 'translations_head.html' %}
+<!-- NET NEUTRALITY BANNER -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#aa0000",
+      "text": "#ffdddd"
+    },
+    "button": {
+      "background": "#ff0000"
+    }
+  },
+  "content": {
+    "message": "US Users: The FCC wants to end net neutrality and give companies power to speed up or slow down connections to websites. Your Netflix could have issues, your favorite news sites could become unreachable or cost extra, and small websites like mine could lose traffic. Let's stop this!",
+    "dismiss": "Dismiss",
+    "link": "Join the Day of Action fight here!",
+    "href": "https://www.battleforthenet.com/july12/"
+  }
+})});
+</script>
+<!-- END OF NET NEUTRALITY MESSAGE -->
 </head>
 
 <body id="index" class="home">
 {% include 'github.html' %}
         <header id="banner" class="body">
-                <h1><a href="{{ SITEURL }}/">{{ SITENAME }} {% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
+		<a href="{{ SITEURL }}/"><img src="{{ SITEURL  }}/{{ THEME_STATIC_DIR }}/images/P.png" alt="Penaz's Area Logo" /></a><div style="float:right;"><script type="text/javascript">
+/* <![CDATA[ */
+google_color_border = "#003399";
+google_color_bg = "#FFFFFF";
+google_color_link = "#0033CC";
+google_color_url = "#008000";
+google_color_text = "#000000";
+google_ui_features = "rc:0";
+document.write('<s'+'cript type="text/javascript" src="http://ad.altervista.org/js2.ad/size=728X90/?ref='+encodeURIComponent(location.hostname+location.pathname)+'&r='+new Date().getTime()+'"></s'+'cript>');
+/* ]]> */
+		</script></div>
                 <nav><ul>
                 {% for title, link in MENUITEMS %}
                     <li><a href="{{ link }}">{{ title }}</a></li>
@@ -31,7 +111,7 @@
                 {% for pg in PAGES | sort(attribute=PAGES_SORT_ATTRIBUTE) %}
                     {% if 'http://' in pg.url -%}
                         <li><a href="{{ pg.url }}">{{ pg.title }}</a></li>
-                    {% else %}    
+                    {% else %}
                         <li{% if pg == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
                     {% endif %}
                 {% endfor %}
@@ -91,7 +171,9 @@
         </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
-                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme inspired and readapted from the <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a> theme.</p>
+		<!-- Privacy policy -->
+<a href="//www.iubenda.com/privacy-policy/359858" class="iubenda-black iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "//cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
         </footer><!-- /#contentinfo -->
 
 {% include 'analytics.html' %}

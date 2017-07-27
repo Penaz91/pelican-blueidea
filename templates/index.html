@@ -8,8 +8,8 @@
         {% if loop.first and not articles_page.has_previous() %}
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
-                    {% include 'article_infos.html' %}{{ article.content }}{% include 'comments.html' %}
+                    <h1 id="entry-title" class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
+                    {% include 'article_infos.html' %}{{ article.summary}}{% include 'comments.html' %}
                 </article>
                 {% if loop.length == 1 %}
                     {% include 'pagination.html' %}
@@ -28,13 +28,15 @@
             {% endif %}
             <li><article class="hentry">
                 <header>
-                    <h1><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+                    <h2 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
                            title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h1>
                 </header>
 
-                <div class="entry-content">
+                <div>
                 {% include 'article_infos.html' %}
+		<div class="entry-content">
                 {{ article.summary }}
+		</div>
                 <a class="readmore" href="{{ SITEURL }}/{{ article.url }}">read more</a>
                 {% include 'comments.html' %}
                 </div><!-- /.entry-content -->
